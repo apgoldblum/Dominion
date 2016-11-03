@@ -1,6 +1,8 @@
 #Author: Aaron G
 require './player'
 require './cards/card'
+require './cards/default_library'
+require './kingdom'
 
 class Game
 
@@ -12,7 +14,8 @@ class Game
 
   def setup()
     player_setup()
-    kingdome_setup()
+    library_setup()
+    kingdom_setup()
     deck_setup()
   end
 
@@ -22,13 +25,17 @@ class Game
     @players = {1 => Player.new(), 2 => Player.new()}
   end
 
+  def library_setup()
+    @default_library ||= DefaultLibrary.new().library
+  end
+
   def kingdom_setup()
-    @kingdom = Kingdom.new(['base'])
+    @kingdom ||= Kingdom.new(['base'])
   end
 
   def deck_setup()
-    estate = Card.new(card_name = 'estate', cost = 2, type = ['vp'], vp = '1')
-    copper = Card.new(card_name = 'copper', cost = 0, type = ['treasure'], coins = '1')
+    estate = @default_library[:estate]
+    copper = @default_library[:copper]
     default_deck = [estate, estate, estate, copper, copper, copper, copper, copper, copper, copper]
     players[1].deck = default_deck.shuffle
     players[2].deck = default_deck.shuffle

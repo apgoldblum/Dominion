@@ -3,14 +3,17 @@ require '../card'
 
 class BaseLibrary
   def initialize()
-    @library = setup_library()
-    @card_stack = setup_card_stack()
+    @library = render_cards()
   end
 
   private
 
   def setup_library()
-    # Cost = 2
-    cellar = Card.new(card_name = 'cellar', cost = 2, type = ['action'])
+    cellar = Card.new(card_name = 'cellar', cost = 2, type = ['action'], cards = 2, e)
+  end
+
+  def cellar()
+    card_effect = lambda
+    Card.new(card_name = 'cellar', cost = 2, type = ['action'], cards = 2, effect = card_effect)
   end
 end

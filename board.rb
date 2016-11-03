@@ -1,4 +1,7 @@
 #Author: Aaron G
+require './cards/card'
+require './cards/default_library'
+require './kingdom'
 
 class Board
 
@@ -16,6 +19,14 @@ class Board
   end
 
   private
+
+  def library_setup()
+    @default_library ||= DefaultLibrary.new().library
+  end
+
+  def kingdom_setup()
+    @kingdom ||= Kingdom.new(['base'])
+  end
 
   def starting_pile_size(player_count)
     copper_count = 60 - (player_count * 3)
