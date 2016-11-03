@@ -11,6 +11,12 @@ class Kingdom
   end
 
   def create_librarys()
-    @base_library = BaseLibrary.new().library
+    libraries = []
+    sets.each { |set|
+      case set
+      when 'base'
+        libraries.puts(BaseLibrary.new().library)
+      end
+    }
   end
 end
