@@ -2,16 +2,7 @@
 require_relative 'card'
 
 class DefaultLibrary
-
-  attr_reader :library
-
-  def initialize()
-    @library = setup_library()
-  end
-
-  private
-
-  def render_cards()
+  def render()
     # Victory Points
     estate = Card.new(card_name = 'estate', cost = 2, type = ['vp'], vp = '1')
     dutchy = Card.new(card_name = 'dutchy', cost = 5, type = ['vp'], vp = '3')

@@ -1,4 +1,5 @@
 #Author: Aaron G
+require './cards/base/library'
 
 class Kingdom
 
@@ -9,7 +10,7 @@ class Kingdom
     @sets = sets
   end
 
-  def create_library()
-
+  def create_librarys()
+    @base_library = BaseLibrary.new().library
   end
 end
