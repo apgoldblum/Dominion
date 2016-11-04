@@ -2,15 +2,19 @@
 
 class Player
 
-  attr_accessor :victory_points, :coin_tokens, :extra_vp, :hand, :deck
+  attr_accessor :actions, :buys, :coin_tokens, :coins, :deck, :discard, :extra_vp, :hand, :in_play, :victory_points
 
   def initialize()
-    @victory_points = 0
+    @actions = 0
+    @buys = 0
     @coin_tokens = 0
-    @extra_vp = 0
-    @hand = []
+    @coins = 0
     @deck = []
     @discard = []
+    @extra_vp = 0
+    @hand = []
+    @in_play = []
+    @victory_points = 0
   end
 
   def add_victory_points(points)
