@@ -9,27 +9,20 @@ class Board
 
   def initialize(player_count)
     @player_count = player_count
-    @province_pile = pile_sizes[:vp]
-    @dutchy_pile  = pile_sizes[:vp]
-    @estate_pile = pile_sizes[:vp]
-    @gold_pile = 30
-    @silver_pile = 40
-    @copper_pile = pile_sizes[:copper]
-    @curse_pile = pile_sizes[:curse]
   end
 
   def setup()
-    supply = supply_setup()
-    kingdom = kingdom_setup()
+    supply_setup()
+    kingdom_setup()
     # TODO: Create board object and populate hash
-    @board = {kingdome: kingdom, supply_piles: {}, trash: {}}
+    @board = {kingdom: @kingdom, supply: @supply, trash: {}}
   end
 
   private
 
   def supply_setup()
     library ||= DefaultLibrary.new().render()
-    pile_sizes = starting_pile_size(player_count)
+    pile_sizes = starting_pile_size(@player_count)
 
     provinces = [library[:province]] * pile_sizes[:vp]
     dutchies = [library[:dutchy]] * pile_sizes[:vp]
@@ -40,12 +33,12 @@ class Board
     silvers = [library[:silver]] * 40
     coppers = [library[:gold]] * pile_sizes[:copper]
 
-    supply = {provinces: province, dutchies: dutchy, estates: estate,
-              curses: curse, golds: golds, silvers: silvers, coppers: coppers}
+    @supply = {provinces: provinces, dutchies: dutchies, estates: estates,
+              curses: curses, golds: golds, silvers: silvers, coppers: coppers}
   end
 
   def kingdom_setup()
-    kingdom ||= Kingdom.new(['base'])
+    @kingdom ||= Kingdom.new(['base']).render()
   end
 
   def starting_pile_size(player_count)

@@ -10,13 +10,28 @@ class Kingdom
     @sets = sets
   end
 
-  def create_librarys()
-    libraries = []
+  def render()
+    create_libraries()
+    choose_kingdom()
+  end
+
+  private
+
+  def create_libraries()
+    @libraries = []
     sets.each { |set|
       case set
       when 'base'
-        libraries.puts(BaseLibrary.new().library)
+        @libraries += BaseLibrary.new().base_library
       end
     }
+  end
+
+  def choose_kingdom()
+    lib_size = @libraries.size
+    @kingdome_set = []
+    @libraries.each_with_index do |card, index|
+
+    end
   end
 end
