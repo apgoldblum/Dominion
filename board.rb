@@ -38,7 +38,7 @@ class Board
   end
 
   def kingdom_setup()
-    @kingdom ||= Kingdom.new(['base']).render()
+    @kingdom = Kingdom.new(['base']).render()
   end
 
   def starting_pile_size(player_count)

@@ -3,7 +3,7 @@ require './cards/base/library'
 
 class Kingdom
 
-  attr_reader :sets
+  # attr_reader :kingdom
 
   #Sets should be an array
   def initialize(sets)
@@ -19,7 +19,7 @@ class Kingdom
 
   def create_libraries()
     @libraries = []
-    sets.each { |set|
+    @sets.each { |set|
       case set
       when 'base'
         @libraries += BaseLibrary.new().base_library
@@ -28,10 +28,15 @@ class Kingdom
   end
 
   def choose_kingdom()
-    lib_size = @libraries.size
-    @kingdome_set = []
-    @libraries.each_with_index do |card, index|
-
+    kingdom_set = []
+    pick_indexes = []
+    while kingdom_set.size < 10
+      choice = rand(@libraries.size)
+      if !pick_indexes.include?(choice)
+        pick_indexes.push(choice)
+        kingdom_set.push(@libraries[choice])
+      end
     end
+    kingdom_set
   end
 end
