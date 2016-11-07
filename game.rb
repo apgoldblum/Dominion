@@ -60,7 +60,7 @@ class Game
     case move
     when 'hand'
       puts 'finally'
-      puts player.hand
+      puts player.hand.card_name
     end
   end
 
@@ -88,5 +88,7 @@ class Game
     default_deck = [estate, estate, estate, copper, copper, copper, copper, copper, copper, copper]
     players[0].deck = default_deck.shuffle
     players[1].deck = default_deck.shuffle
+    players[0].draw(5)
+    players[1].draw(5)
   end
 end

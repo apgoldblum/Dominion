@@ -31,7 +31,13 @@ class Player
 
   def draw(cards)
     for i in 1..cards
-      @hand.push(@deck.pop)
+      hand.push(deck.pop)
+    end
+  end
+
+  def discard(cards)
+    for i in 1..cards
+      discard.push(hand.pop)
     end
   end
 end
