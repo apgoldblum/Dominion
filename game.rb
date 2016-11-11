@@ -44,12 +44,13 @@ class Game
     turn = @turns.index(true)
     player = players[turn]
     puts turn
-    puts 'Player #{turn} turn start!'
+    puts "Player #{turn} turn start!"
     puts 'If you need turn commands, type HELP at any time'
     player.actions = 1
     player.buys = 1
     move = ''
     while move != 'end' || player.buys == 0 do
+      player.display_hand
       print 'Move: '
       move = gets.chomp
       check_move(move, player)
@@ -59,8 +60,7 @@ class Game
   def check_move(move, player)
     case move
     when 'hand'
-      puts 'finally'
-      puts player.hand.card_name
+      player.display_hand
     end
   end
 

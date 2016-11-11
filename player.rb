@@ -12,7 +12,7 @@ class Player
     @deck = []
     @discard = []
     @extra_vp = 0
-    @hand = []
+    @hand = {}
     @in_play = []
     @victory_points = 0
   end
@@ -30,8 +30,16 @@ class Player
   end
 
   def draw(cards)
+    hand_array = []
     for i in 1..cards
-      hand.push(deck.pop)
+      hand_array.push(deck.pop)
+    end
+    process_hand(hand_array)
+  end
+
+  def process_hand(hand_array)
+    hand_array.each do |card|
+
     end
   end
 
@@ -39,6 +47,37 @@ class Player
     for i in 1..cards
       discard.push(hand.pop)
     end
+  end
+
+  def display_hand()
+    cards = cards_in_hand()
+    card_number = [0]
+    card_index = 0
+    cards.each do |card|
+      current_card ||= card
+      if current_card == card
+        card_number[card_index] += 1
+      else
+        puts ("#{card_index}: #{card} x#{card_number}")
+        current_card = card
+        card_number = 0
+        card_index += 1
+      end
+    end
+  end
+
+  def play_card()
+
+  end
+
+  private
+
+  def cards_in_hand()
+    cards = []
+    hand.each do |card|
+      cards.push(card.card_name)
+    end
+    cards.sort!
   end
 end
 
