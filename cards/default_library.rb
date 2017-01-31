@@ -2,7 +2,7 @@
 require_relative 'card'
 
 class DefaultLibrary
-  def render()
+  def self.render
     # Victory Points
     estate = Card.new(card_name = 'estate', cost = 2, type = ['vp'], vp = '1')
     dutchy = Card.new(card_name = 'dutchy', cost = 5, type = ['vp'], vp = '3')

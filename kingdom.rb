@@ -10,24 +10,24 @@ class Kingdom
     @sets = sets
   end
 
-  def render()
-    create_libraries()
-    choose_kingdom()
+  def render
+    create_libraries
+    choose_kingdom
   end
 
   private
 
-  def create_libraries()
+  def create_libraries
     @libraries = []
     @sets.each { |set|
       case set
       when 'base'
-        @libraries += BaseLibrary.new().base_library
+        @libraries += BaseLibrary.new.base_library
       end
     }
   end
 
-  def choose_kingdom()
+  def choose_kingdom
     kingdom_set = []
     pick_indexes = []
     while kingdom_set.size < 10

@@ -11,17 +11,17 @@ class Board
     @player_count = player_count
   end
 
-  def setup()
-    supply_setup()
-    kingdom_setup()
+  def setup
+    supply_setup
+    kingdom_setup
     # TODO: Create board object and populate hash
-    @board = {kingdom: @kingdom, supply: @supply, trash: {}}
+    @board = {kingdom: @kingdom, supply: @supply, trash: []}
   end
 
   private
 
-  def supply_setup()
-    library ||= DefaultLibrary.new().render()
+  def supply_setup
+    library = DefaultLibrary.render
     pile_sizes = starting_pile_size(@player_count)
 
     provinces = [library[:province]] * pile_sizes[:vp]
@@ -37,21 +37,22 @@ class Board
               curses: curses, golds: golds, silvers: silvers, coppers: coppers}
   end
 
-  def kingdom_setup()
-    @kingdom = Kingdom.new(['base']).render()
+  def kingdom_setup
+    @kingdom = Kingdom.new(['base']).render
   end
 
   def starting_pile_size(player_count)
     copper_count = 60 - (player_count * 3)
     pile_sizes = {vp: 12, curse: 10, copper: copper_count}
     case player_count
+    when 2
+      {vp: 8, curse: 10, copper: copper_count}
     when 3
-      pile_sizes[:curse] = 20
+      {vp: 12, curse: 20, copper: copper_count}
     when 4
-      pile_sizes[:curse] = 30
+      {vp: 12, curse: 30, copper: copper_count}
     else
-      pile_sizes[:vp] = 8
+      raise 'Invalid Player Count'
     end
-    pile_sizes
   end
 end

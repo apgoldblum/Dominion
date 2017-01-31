@@ -13,13 +13,13 @@ class Game
     @player_count = player_count
   end
 
-  def setup()
-    player_setup()
-    board_setup()
-    deck_setup()
+  def setup
+    player_setup
+    board_setup
+    deck_setup
   end
 
-  def start()
+  def start
     starting_player = rand(@player_count)
     @turns = []
     (0..@player_count-1).each do |i|
@@ -27,20 +27,20 @@ class Game
     end
   end
 
-  def play()
-    while end?() do
-      take_turn()
-      next_turn()
+  def play
+    while end? do
+      take_turn
+      next_turn
     end
   end
 
-  def end?()
+  def end?
     true
   end
 
   private
 
-  def take_turn()
+  def take_turn
     turn = @turns.index(true)
     player = players[turn]
     puts turn
@@ -51,38 +51,30 @@ class Game
     move = ''
     while move != 'end' || player.buys == 0 do
       player.display_hand
-      print 'Move: '
-      move = gets.chomp
-      check_move(move, player)
+      print 'Action: '
+      action = gets.chomp
+      player.complete_action(action)
     end
   end
 
-  def check_move(move, player)
-    case move
-    when 'hand'
-      player.display_hand
-    end
-  end
-
-
-  def next_turn()
+  def next_turn
     current_t = @turns.index(true)
     @turns[current_t] = false
     next_t = current_t + 1
     next_t >= @turns.length ? @turns[0] = true : @turns[next_t] = true
   end
 
-  def player_setup()
-    @players = {0 => Player.new(), 1 => Player.new()}
+  def player_setup
+    @players = {0 => Player.new, 1 => Player.new}
   end
 
-  def board_setup()
+  def board_setup
     @board ||= Board.new(@player_count)
-    @board.setup()
+    @board.setup
   end
 
-  def deck_setup()
-    default_library = DefaultLibrary.new().render()
+  def deck_setup
+    default_library = DefaultLibrary.render
     estate = default_library[:estate]
     copper = default_library[:copper]
     default_deck = [estate, estate, estate, copper, copper, copper, copper, copper, copper, copper]

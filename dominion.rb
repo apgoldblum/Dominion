@@ -13,6 +13,6 @@ puts "Welcome to Dominion!!!"
 # end
 
 game = Game.new(2)
-game.setup()
-game.start()
-game.play()
+game.setup
+game.start
+game.play
