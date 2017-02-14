@@ -1,17 +1,18 @@
 #Author: Aaron G
+require 'pry'
 class Card
 
   attr_reader :actions, :buys, :card_name, :cards, :coins, :cost, :effect, :type, :vp
 
-  def initialize(card_name, cost, type, actions = 0, buys = 0, cards = 0, coins = 0, effect = nil, vp = 0)
-    @actions = actions
-    @buys = buys
+  def initialize(card_name, cost, type, options, effect = nil)
+    @actions = options[:actions]
+    @buys = options[:buys]
     @card_name = card_name
-    @cards = cards
-    @coins = coins
+    @cards = options[:cards]
+    @coins = options[:coins]
     @cost = cost
     @effect = effect
     @type = type
-    @vp = vp
+    @vp = options[:vp]
   end
 end

@@ -1,11 +1,14 @@
 #Author: Aaron G
-require './player'
+require './action_module'
+require './board'
 require './cards/card'
 require './cards/default_library'
 require './kingdom'
-require './board'
+require './player'
 
 class Game
+
+  include ::ActionModule
 
   attr_accessor :players, :board
 
@@ -49,11 +52,23 @@ class Game
     player.actions = 1
     player.buys = 1
     move = ''
+    complete_action(player, 'hand')
     while move != 'end' || player.buys == 0 do
-      player.display_hand
       print 'Action: '
-      action = gets.chomp
-      player.complete_action(action)
+      action = gets.chomp.downcase
+      complete_action(player, action)
+    end
+  end
+
+  def complete_action(player, action)
+    parsed_hand = player.parse_hand
+    case action.downcase
+    when 'hand', 'h'
+      display_hand(parsed_hand)
+    when 'kingdom', 'k'
+      display_kingdom
+    else
+      puts "That is not a valid move, please try again."
     end
   end
 
@@ -69,8 +84,7 @@ class Game
   end
 
   def board_setup
-    @board ||= Board.new(@player_count)
-    @board.setup
+    @board = Board.new(@player_count).setup
   end
 
   def deck_setup

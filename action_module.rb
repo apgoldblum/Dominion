@@ -1,25 +1,28 @@
+require 'pry'
+
 module ActionModule
 
-  def display_hand
-    cards = cards_in_hand
-    number_of_cards = 0
-    card_index = 0
-    hand = []
-    current_card = cards[0]
-    cards.each do |card|
-      if current_card == card
-        number_of_cards += 1
-      else
-        puts ("#{card_index}: #{current_card} x#{number_of_cards}")
-        hand.push({index: card_index, card: current_card, number: number_of_cards})
-        current_card = card
-        number_of_cards = 1
-        card_index += 1
-      end
+  def display_hand(parsed_hand)
+    parsed_hand.each do |card|
+      puts ("#{card[:index]}: #{card[:card]} x#{card[:number]}")
     end
-    puts ("#{card_index}: #{current_card} x#{number_of_cards}")
   end
 
-  # puts ("#{card_index}: #{card} x#{card_number}")
+  def display_kingdom
+    kingdom = board[:kingdom].to_a.map do |card|
+      card[1][0].card_name
+    end
+    supply = board[:supply].to_a.map do |card|
+      card[1][0].card_name
+    end
+    puts 'Kingdom:'
+    kingdom.each_with_index do |card, i|
+      puts " k#{i}: #{card}"
+    end
+    puts 'Supply:'
+    supply.each_with_index do |card, i|
+      puts " s#{i}: #{card}"
+    end
+  end
 
 end

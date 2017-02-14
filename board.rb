@@ -24,33 +24,33 @@ class Board
     library = DefaultLibrary.render
     pile_sizes = starting_pile_size(@player_count)
 
-    provinces = [library[:province]] * pile_sizes[:vp]
-    dutchies = [library[:dutchy]] * pile_sizes[:vp]
-    estates = [library[:estate]] * pile_sizes[:vp]
+    provinces = [library[:province]] * pile_sizes[:cards]
+    dutchies = [library[:dutchy]] * pile_sizes[:cards]
+    estates = [library[:estate]] * pile_sizes[:cards]
     curses = [library[:curse]] * pile_sizes[:curse]
 
     golds = [library[:gold]] * 30
     silvers = [library[:silver]] * 40
-    coppers = [library[:gold]] * pile_sizes[:copper]
+    coppers = [library[:copper]] * pile_sizes[:copper]
 
     @supply = {provinces: provinces, dutchies: dutchies, estates: estates,
               curses: curses, golds: golds, silvers: silvers, coppers: coppers}
   end
 
   def kingdom_setup
-    @kingdom = Kingdom.new(['base']).render
+    pile_size = starting_pile_size(@player_count)[:cards]
+    @kingdom = Kingdom.new(['base']).render(pile_size)
   end
 
   def starting_pile_size(player_count)
     copper_count = 60 - (player_count * 3)
-    pile_sizes = {vp: 12, curse: 10, copper: copper_count}
     case player_count
     when 2
-      {vp: 8, curse: 10, copper: copper_count}
+      {cards: 8, curse: 10, copper: copper_count}
     when 3
-      {vp: 12, curse: 20, copper: copper_count}
+      {cards: 12, curse: 20, copper: copper_count}
     when 4
-      {vp: 12, curse: 30, copper: copper_count}
+      {cards: 12, curse: 30, copper: copper_count}
     else
       raise 'Invalid Player Count'
     end

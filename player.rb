@@ -1,11 +1,10 @@
 #Author: Aaron G
-require './action_module'
+require 'pry'
 
 class Player
 
-  include ::ActionModule
-
-  attr_accessor :actions, :buys, :coin_tokens, :coins, :deck, :discard, :extra_vp, :hand, :in_play, :victory_points
+  attr_accessor :actions, :buys, :coin_tokens, :coins, :deck, :discard, :extra_vp, :hand, :in_play, :parsed_hand
+                :victory_points
 
   def initialize
     @actions = 0
@@ -15,17 +14,16 @@ class Player
     @deck = []
     @discard = []
     @extra_vp = 0
-    @hand = {}
+    @hand = []
+    @parsed_hand = []
     @in_play = []
     @victory_points = 0
   end
 
   def draw(cards)
-    hand_array = []
     cards.times do |i|
-      hand_array.push(deck.pop)
+      hand.push(deck.pop)
     end
-    parse_hand
   end
 
   def discard(cards)
@@ -34,38 +32,26 @@ class Player
     end
   end
 
-  def complete_action(action)
-    case action.downcase
-    when 'hand'
-      display_hand
-    else
-      puts "That is not a valid move, please try again."
-    end
-  end
-
-  def play_card
-
-  end
-
-  private
-
   def parse_hand
+    parsed_hand = []
     cards = cards_in_hand
     number_of_cards = 0
     card_index = 0
-    hand = []
     current_card = cards[0]
     cards.each do |card|
       if current_card == card
         number_of_cards += 1
       else
-        hand.push({index: card_index, card: current_card, number: number_of_cards})
+        parsed_hand.push({index: card_index, card: current_card, number: number_of_cards})
         current_card = card
         number_of_cards = 1
         card_index += 1
       end
     end
+    parsed_hand.push({index: card_index, card: current_card, number: number_of_cards})
   end
+
+  private
 
   def cards_in_hand
     cards = []
